@@ -33,7 +33,8 @@ class TaskListScreen extends StatelessWidget {
               closedColor: Colors.transparent,
               transitionType: ContainerTransitionType.fadeThrough,
               openBuilder: (BuildContext context, VoidCallback _){
-                controller.changeDate(controller.taskList[index]!.deadline!);
+                // print(index);
+                // controller.setEditingForm(index);
                 return SizedBox(
                   height: 240,
                   width: MediaQuery.of(context).size.width,
@@ -46,10 +47,17 @@ class TaskListScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(18.0),
                           child: Column(
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
+                              const SizedBox(height: 15,),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Center(
-                                child: Text('Edit Task',style: TextStyle(fontSize: 20)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text('Edit Task ',style: TextStyle(fontSize: 20)),
+                                    Icon(Icons.published_with_changes_rounded)
+                                  ],
+                                ),
                                 ),
                               ),
                               const SizedBox(
@@ -83,12 +91,12 @@ class TaskListScreen extends StatelessWidget {
                                 maxLength: 180,
                                 maxLines: 5,
                                 decoration: InputDecoration(
-                                  hintText: controller.taskList[index]!.description!,
+                                  // hintText: controller.taskList[index]!.description!,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   labelText: 'Task description',
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  // floatingLabelBehavior: FloatingLabelBehavior.always,
                                   contentPadding: const EdgeInsets.all(10.0),
                                 ),
                                 validator: (value){
@@ -136,7 +144,16 @@ class TaskListScreen extends StatelessWidget {
                                     controller.resetForm();
                                     Navigator.pop(context);
                                 }, 
-                                child: const Text("Save")
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const [
+                                    Text("Save changes"),
+                                    Padding(
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Icon(Icons.save_rounded),
+                                    )
+                                  ],
+                                )
                               )
                             ]
                           ),
@@ -146,6 +163,10 @@ class TaskListScreen extends StatelessWidget {
                   ),
                 );
               },
+              onClosed: (data) {
+                controller.resetForm();
+              },
+              tappable: false,
               closedBuilder: (BuildContext context, VoidCallback openContainer){
                 return Card(
                   shape: RoundedRectangleBorder(
@@ -203,10 +224,31 @@ class TaskListScreen extends StatelessWidget {
                         TextButton(onPressed: ()=>{
                         controller.completeTask(controller.taskList[index]!.id!),
                         }, 
-                        child: const Text("Finish")),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.assignment_turned_in_rounded, color: Colors.green,),
+                            Text("Finish", style: TextStyle(color: Colors.green)),
+                          ],
+                        )),
+                        TextButton(onPressed: ()=>{
+                          controller.setEditingForm(index),
+                          openContainer.call()
+                        // controller.completeTask(controller.taskList[index]!.id!),
+                        }, 
+                        child: Row(
+                          children: const [
+                            Icon(Icons.edit),
+                            Text("Edit"),
+                          ],
+                        )),
                         TextButton(onPressed: ()=>{
                           controller.deleteTask(controller.taskList[index]!.id!),
-                        }, child: const Text("Delete")),
+                        }, child: Row(
+                          children: const [
+                            Icon(Icons.delete, color: Colors.red,),
+                            Text("Delete", style: TextStyle(color: Colors.red),),
+                          ],
+                        )),
                       ],)
                     ],
                   ),

@@ -15,11 +15,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // Initial Route for loader
       initialRoute: Routes.splashSCreen,
+      // Routes definitions (optional)
       routes: {
+        // Requested route => binding route
         Routes.splashSCreen: (context) => const SplashScreen(),
       },
+      // Controller initializer 
       initialBinding: AppBinding(),
+      // Banner hide
       debugShowCheckedModeBanner: false,
     );
   }

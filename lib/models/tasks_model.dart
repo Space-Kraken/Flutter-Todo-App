@@ -1,19 +1,20 @@
-class TaskModel {
-  int? id;
-  String? title;
-  String? description;
-  DateTime? deadline;
-  bool? status;
+class TaskModel { //Clase modelo
+  int? id;            //
+  String? title;      //Parametros
+  String? description;//del modelo
+  DateTime? deadline; //
+  bool? status;       //
 
-  TaskModel({
-    this.id,
-    this.title,
-    this.description,
-    this.deadline,
-    this.status,
+  TaskModel({ //Cosntructor
+    this.id,          //
+    this.title,       //
+    this.description, //Mapeo de los 
+    this.deadline,    //parametros
+    this.status,      //
   });
 
   factory TaskModel.fromMap(Map<String, dynamic> map) {
+    // Metodo para crear un modelo apartir de datos
     return TaskModel(
       id: map['id'],
       title: map['title'],
@@ -24,6 +25,7 @@ class TaskModel {
   }
 
   Map<String, dynamic> toMap() {
+    // Metodo para crear datos apartir de un modelo
     return {
       'id': id,
       'title': title,

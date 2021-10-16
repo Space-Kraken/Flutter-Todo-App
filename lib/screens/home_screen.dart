@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
     assert(_tabScreens.length == _bottomNavigationBarItems.length);
 
     return Obx(() => Scaffold(
+          backgroundColor: Colors.grey.shade300,
           appBar: AppBar(
             title: const Center(child: Text('My ToDo List')),
           ),
@@ -51,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                     ).whenComplete(() => controller.resetForm())
                       
                   },
-                  child: const Icon(Icons.add),
+                  child: const Icon(Icons.my_library_add_rounded),
                 )
               : null,
         ));
@@ -72,12 +73,15 @@ Widget _buildBottomSheet(BuildContext context, HomeScreenController controller) 
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Center(
-                    child: Text(
-                      'Add Task',
-                      style: TextStyle(fontSize: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text('Add Task ',style: TextStyle(fontSize: 20),),
+                        Icon(Icons.add_task_rounded)
+                      ],
                     ),
                   ),
                 ),
@@ -134,7 +138,7 @@ Widget _buildBottomSheet(BuildContext context, HomeScreenController controller) 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Obx(()=>Text(controller.selectedDate.value.toString().substring(0,10))),
+                    Obx(()=>Text('Due to: ${controller.selectedDate.value.toString().substring(0,10)}')),
                     InkWell(
                       onTap: ()=> _selectDate(context, controller),
                       child: const Icon(Icons.calendar_today),
@@ -161,7 +165,16 @@ Widget _buildBottomSheet(BuildContext context, HomeScreenController controller) 
                       Navigator.pop(context);
                     }
                   }, 
-                  child: const Text("Save")
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text("Save"),
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(Icons.save_rounded),
+                      )
+                    ],
+                  )
                 )
               ],
             ),

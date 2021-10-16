@@ -26,7 +26,26 @@ class CompletedTaskListScreen extends StatelessWidget {
                   ListTile(
                     contentPadding: const EdgeInsets.fromLTRB(15, 10, 25, 0),
                     title: Center(child: Text(controller.completedTasks[index]!.title.toString())),
-                    subtitle: Center(child: Text(controller.completedTasks[index]!.description.toString())),
+                    subtitle: Center(child: Column(
+                      children: [
+                        const SizedBox(height: 5,),
+                        const Divider(
+                          height: 5,
+                          thickness: 1,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        const SizedBox(height: 5,),
+                        Text(controller.completedTasks[index]!.description.toString()),
+                        const SizedBox(height: 5,),
+                      ],
+                    )),
+                  ),
+                  const Divider(
+                    height: 5,
+                    thickness: 1,
+                    indent: 20,
+                    endIndent: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -35,12 +54,22 @@ class CompletedTaskListScreen extends StatelessWidget {
                         onPressed: (){
                           controller.unmarkTasl(controller.completedTasks[index]!.id!);
                         }, 
-                        child: const Text("Unmark")),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.unpublished_rounded, color: Colors.amber,),
+                            Text("Unmark", style: TextStyle(color: Colors.amber),),
+                          ],
+                        ),),
                       TextButton(
                         onPressed: (){
                           controller.deleteTask(controller.completedTasks[index]!.id!);
                         }, 
-                        child: const Text("Delete"))
+                        child: Row(
+                          children: const [
+                            Icon(Icons.delete_rounded, color: Colors.red,),
+                            Text("Delete", style: TextStyle(color: Colors.red),),
+                          ],
+                        ))
                     ],
                   )
                 ],

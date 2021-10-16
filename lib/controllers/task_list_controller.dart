@@ -71,4 +71,10 @@ class TaskListController extends GetxController {
     database.update(updateTask.toMap());
     getTasks();
   }
+
+  void setEditingForm(int index){
+    taskTitleField.text = taskList[index]!.title!;
+    taskDescField.text = taskList[index]!.description!;
+    changeDate(taskList[index]!.deadline!);
+  }
 }
